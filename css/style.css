@@ -1,0 +1,51 @@
+body {
+  font-family: sans-serif;
+}
+
+.container {
+  margin: 50px auto 0;
+  width: 450px;
+}
+
+.text-info {
+  text-align: center;
+}
+
+.footer-text {
+  color: #bbb;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+button {
+  outline: none;
+}
+
+.default {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 0;
+  background: #bbb;
+}
+
+.player1Selected {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 0;
+  background: red;
+}
+
+.player2Selected {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 0;
+  background: yellow;
+}
+
+/* .board button:hover{
+  background: #696969;
+} */
