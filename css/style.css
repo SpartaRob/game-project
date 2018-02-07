@@ -22,7 +22,7 @@ h1{
   margin-top: 50px;
 }
 
-#reset, #rules{
+#reset, #show-rules{
   padding: 5px;
   width: 100px;
   font-size: 1.5em;
@@ -39,7 +39,7 @@ button {
   outline: none;
 }
 
-.default {
+.default { /*Styles the buttons grey by default*/
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -47,7 +47,7 @@ button {
   background: #bbb;
 }
 
-.player1Selected {
+.player1Selected { /*Styles a button red for player 1's move*/
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -55,7 +55,7 @@ button {
   background: red;
 }
 
-.player2Selected {
+.player2Selected { /*Styles a button yellow for player 2's move*/
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -63,6 +63,47 @@ button {
   background: yellow;
 }
 
-/* .board button:hover{
-  background: #696969;
-} */
+/* General Modal Styling*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+/* Rules Modal Styling */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+
+#rules-close,
+#error-close,
+#game-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#rules-close:hover, #rules-close:focus,
+#error-close:hover, #error-close:focus,
+#game-close:hover, #game-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header, {
+    padding: 2px 16px;
+}
