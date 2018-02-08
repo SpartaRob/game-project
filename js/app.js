@@ -56,6 +56,7 @@ $(document).ready(function() {
     }
   }
 
+  //Looks at the currently selected column starting from the bottom cycing up until an empty cell is located returning its index
   function dropToBottom(x, y) {
     for (var i = 5; i >= 0; i--) {
         if (board[x][i] === 0) {
@@ -71,70 +72,70 @@ $(document).ready(function() {
     diagonalWin();
   }
 
+  //Changes the output display to show a player 1 win
   function player1Win(){
     $('#player-turn').text("Player 1 Wins")
     $('#play-again').show("slow");
+    $('.board button').unbind();
   }
 
+  //Changes the output display to show a player 1 win
   function player2Win(){
     $('#player-turn').text("Player 2 Wins")
     $('#play-again').show("slow");
+    $('.board button').unbind();
   }
 
   function horizontalWin() {
     var currentValue = null,
     previousValue = 0,
-    tally = 0;
+    count = 0;
 
     for (var y = 0; y <= 5; y++) {
       for (var x = 0; x <= 6; x++) {
         currentValue = board[x][y];
         if (currentValue === previousValue && currentValue !== 0) {
-          tally += 1;
+          count += 1;
         } else {
-          tally = 0;
+          count = 0;
         }
-        if (tally === 3) {
+        if (count === 3) {
           if (currentValue === 1) {
             player1Win();
-            $('.board button').off('click');
           } else {
             player2Win();
-            $('.board button').off('click');
           }
         }
         previousValue = currentValue;
       }
-      tally = 0;
+      count = 0;
       previousValue = 0;
     }
   }
 
   function verticalWin(){
-    var currentValue = null,
-    previousValue = 0,
-    tally = 0;
+    var currentValue = null;
+    var previousValue = 0;
+    var count = 0;
 
     for (var x = 0; x <= 6; x++) {
       for (var y = 0; y <= 5; y++) {
         currentValue = board[x][y];
         if (currentValue === previousValue && currentValue !== 0) {
-          tally += 1;
+          count += 1;
         } else {
-          tally = 0;
+          count = 0;
         }
-        if (tally === 3) {
+        if (count === 3) {
           if (currentValue === 1) {
             player1Win();
-            $('.board button').off('click');
           } else {
             player2Win();
-            $('.board button').off('click');
           }
         }
         previousValue = currentValue;
       }
-      tally = 0;
+      count = 0;
       previousValue = 0;
     }
   }
@@ -148,6 +149,7 @@ $(document).ready(function() {
     if (counter >= 42) {
       $('#player-turn').text("The game is a draw")
       $('#play-again').show("slow");
+      $('.board button').unbind();
     }
   }
 
@@ -160,7 +162,8 @@ $(document).ready(function() {
     $('.board button').removeClass('player1Selected');
     $('.board button').removeClass('player2Selected');
     $('#play-again').hide();
-    $('.board button').click(boardClick)
+    $('.board button').unbind();
+    $('.board button').click(boardClick);
     currentPlayer = 'Player 1';
     board = [
       [0, 0, 0, 0, 0, 0],
