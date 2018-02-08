@@ -11,9 +11,12 @@ $(document).ready(function() {
   ];
 
   var currentPlayer = 'Player 1';
+  var player1Score = 0;
+  var player2Score = 0;
   var counter = 0;
 
   $('#reset').click(resetBoard)
+  $('#reset').click(resetScore)
   $('#play-again').click(resetBoard)
   $('#show-rules').click(rulesShow)
   $('#rules-close').click(rulesClose)
@@ -77,6 +80,8 @@ $(document).ready(function() {
     $('#player-turn').text("Player 1 Wins")
     $('#play-again').show("slow");
     $('.board button').unbind();
+    player1Score++;
+    $('#player1-score').text("Player 1 Score: " + player1Score);
   }
 
   //Changes the output display to show a player 1 win
@@ -84,12 +89,15 @@ $(document).ready(function() {
     $('#player-turn').text("Player 2 Wins")
     $('#play-again').show("slow");
     $('.board button').unbind();
+    player2Score++;
+    $('#player2-score').text("Player 2 Score: " + player2Score);
   }
 
+  //Cycles through all of the rows adding up all adjacent identical cells within the row and declaring a winner if there are 4 next to each other
   function horizontalWin() {
-    var currentValue = null,
-    previousValue = 0,
-    count = 0;
+    var currentValue = null;
+    var previousValue = 0;
+    var count = 0;
 
     for (var y = 0; y <= 5; y++) {
       for (var x = 0; x <= 6; x++) {
@@ -113,6 +121,7 @@ $(document).ready(function() {
     }
   }
 
+    //Cycles through all of the columns adding up all adjacent identical cells within the column and declaring a winner if there are 4 next to each other
   function verticalWin(){
     var currentValue = null;
     var previousValue = 0;
@@ -141,7 +150,38 @@ $(document).ready(function() {
   }
 
   function diagonalWin(){
-
+    // var currentValue = null;
+    // var previousValue = 0;
+    // var count = 0;
+    //
+    // var xcurrent =
+    //
+    // for (var x = 6; x >= 0; x--) {
+    //   for (var y = 5; y >= 0; y--) {
+    //     xcurrent = x;
+    //     ycurrent = y;
+    //     while (xcurrent >= 0 && ycurrent >= 0) {
+    //       currentValue = board[xcurrent][ycurrent];
+    //       if (currentValue === previousValue && currentValue !== 0) {
+    //         count += 1;
+    //       } else {
+    //         count = 0;
+    //       }
+    //       if (count === 3) {
+    //         if (currentValue === 1) {
+    //           player1Win();
+    //         } else {
+    //           player2Win();
+    //         }
+    //       }
+    //       previousValue = currentValue;
+    //       xcurrent--;
+    //       ycurrent--;
+    //     }
+    //   }
+    //   count = 0;
+    //   previousValue = 0;
+    // }
   }
 
   //Counter adds total pieces which have been placed and if the board is full without a winner will end the game
@@ -174,6 +214,13 @@ $(document).ready(function() {
       [0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0]
     ];
+  }
+
+  function resetScore(){
+    player1Score = 0;
+    player2Score = 0;
+    $('#player1-score').text("Player 1 Score: " + player1Score);
+    $('#player2-score').text("Player 2 Score: " + player2Score);
   }
 
   function rulesShow() {
