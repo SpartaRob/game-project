@@ -72,7 +72,8 @@ $(document).ready(function() {
   function checkForWin() {
     horizontalWin();
     verticalWin();
-    diagonalWin();
+    forwardDiagonalWin();
+    backwardDiagonalWin();
   }
 
   //Changes the output display to show a player 1 win
@@ -149,39 +150,76 @@ $(document).ready(function() {
     }
   }
 
-  function diagonalWin(){
-    // var currentValue = null;
-    // var previousValue = 0;
-    // var count = 0;
-    //
-    // var xcurrent =
-    //
-    // for (var x = 6; x >= 0; x--) {
-    //   for (var y = 5; y >= 0; y--) {
-    //     xcurrent = x;
-    //     ycurrent = y;
-    //     while (xcurrent >= 0 && ycurrent >= 0) {
-    //       currentValue = board[xcurrent][ycurrent];
-    //       if (currentValue === previousValue && currentValue !== 0) {
-    //         count += 1;
-    //       } else {
-    //         count = 0;
-    //       }
-    //       if (count === 3) {
-    //         if (currentValue === 1) {
-    //           player1Win();
-    //         } else {
-    //           player2Win();
-    //         }
-    //       }
-    //       previousValue = currentValue;
-    //       xcurrent--;
-    //       ycurrent--;
-    //     }
-    //   }
-    //   count = 0;
-    //   previousValue = 0;
-    // }
+  function backwardDiagonalWin(){
+    var currentValue = null;
+    var previousValue = 0;
+    var count = 0;
+
+    var xcurrent = 0;
+    var ycurrent = 0;
+
+    for (var x = 6; x >= 0; x--) {
+      for (var y = 5; y >= 0; y--) {
+        xcurrent = x;
+        ycurrent = y;
+        while (xcurrent >= 0 && ycurrent >= 0) {
+          currentValue = board[xcurrent][ycurrent];
+          if (currentValue === previousValue && currentValue !== 0) {
+            count += 1;
+          } else {
+            count = 0;
+          }
+          if (count === 3) {
+            if (currentValue === 1) {
+              player1Win();
+            } else {
+              player2Win();
+            }
+          }
+          previousValue = currentValue;
+          xcurrent--;
+          ycurrent--;
+        }
+      }
+      count = 0;
+      previousValue = 0;
+    }
+  }
+
+  function forwardDiagonalWin(){
+    var currentValue = null;
+    var previousValue = 0;
+    var count = 0;
+
+    var xcurrent = 0;
+    var ycurrent = 0;
+
+    for (var x = 0; x <= 6; x++) {
+      for (var y = 5; y >= 0; y--) {
+        xcurrent = x;
+        ycurrent = y;
+        while (xcurrent <= 6 && ycurrent >= 0) {
+          currentValue = board[xcurrent][ycurrent];
+          if (currentValue === previousValue && currentValue !== 0) {
+            count += 1;
+          } else {
+            count = 0;
+          }
+          if (count === 3) {
+            if (currentValue === 1) {
+              player1Win();
+            } else {
+              player2Win();
+            }
+          }
+          previousValue = currentValue;
+          xcurrent++;
+          ycurrent--;
+        }
+      }
+      count = 0;
+      previousValue = 0;
+    }
   }
 
   //Counter adds total pieces which have been placed and if the board is full without a winner will end the game
