@@ -22,16 +22,20 @@ h1{
   margin-top: 50px;
 }
 
-#reset, #show-rules{
+.button{
   padding: 5px;
-  width: 100px;
+  width: 30%;
   font-size: 1.5em;
   border: none;
   cursor: pointer;
   margin-bottom: 50px;
 }
 
-#reset:hover, #rules:hover{
+#play-again{
+  display: none;
+}
+
+#reset:hover, #rules:hover, #play-again:hover{
   color: red;
 }
 
@@ -104,6 +108,27 @@ button {
     cursor: pointer;
 }
 
-.modal-header, {
+.modal-header {
     padding: 2px 16px;
+}
+
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 1.3em;
+  }
+
+  h2 {
+    font-size: 1em;
+  }
+
+  .container {
+    margin: 20px auto 0;
+    width: 240px;
+  }
+
+  .board button {
+    width: 30px;
+    height: 30px;
+  }
 }

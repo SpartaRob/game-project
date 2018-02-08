@@ -1,12 +1,13 @@
 $(document).ready(function() {
 
   var board = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0]
   ];
 
   var currentPlayer = 'Player 1';
@@ -16,37 +17,52 @@ $(document).ready(function() {
   $('#show-rules').click(rulesShow)
   $('#rules-close').click(rulesClose)
   $('#error-close').click(errorClose)
-  $('#game-close').click(gameClose)
-  $('.board button').click(addPiece)
+  $('.board button').click(boardClick)
 
 
   //Add a piece to the board, removes default class styling, adds new styling depending active player, checks for a draw
-  function addPiece(event) {
-    var y_pos = $('.board tr').index($(this).closest('tr'));
-    var x_pos = $(this).closest('tr').find('td').index($(this).closest('td'));
+  function boardClick(event) {
+    var ypos = $('.board tr').index($(this).closest('tr'));
+    var xpos = $(this).closest('tr').find('td').index($(this).closest('td'));
 
-    console.log(y_pos, x_pos);
+    ypos = dropToBottom(xpos, ypos);
+    addPiece(xpos, ypos);
+    checkForWin();
+    checkForDraw();
+  }
 
-    if ($(this).hasClass('default')) {
+  function addPiece(xpos, ypos){
+    if (board[xpos][ypos] === 0) {
       if (currentPlayer === 'Player 1') {
         currentPlayer = 'Player 2';
         $('#player-turn').text("Current player is: " + currentPlayer);
-        $(this).addClass('player1Selected');
-        $(this).removeClass('default');
+        board[xpos][ypos] = 1;
+        var cell = $("tr:eq(" + ypos + ")").find('td').eq(xpos);
+        cell.children('button').addClass('player1Selected');
+        cell.children('button').removeClass('default');
         counter++;
       } else {
         currentPlayer = 'Player 1';
         $('#player-turn').text("Current player is: " + currentPlayer);
-        $(this).addClass('player2Selected');
-        $(this).removeClass('default');
+        board[xpos][ypos] = 1;
+        var cell = $("tr:eq(" + ypos + ")").find('td').eq(xpos);
+        cell.children('button').addClass('player2Selected');
+        cell.children('button').removeClass('default');
         counter++;
       }
     } else {
       $('#errorModal').show();
     }
-    checkForWin();
-    checkForDraw();
   }
+
+  function dropToBottom(x, y) {
+    for (var i = 5; i >= 0; i--) {
+        if (board[x][i] === 0) {
+            return i;
+        }
+    }
+    return y;
+}
 
   function checkForWin() {
 
@@ -54,23 +70,9 @@ $(document).ready(function() {
 
   //Counter adds total pieces which have been placed and if the board is full without a winner will end the game
   function checkForDraw() {
-    if (counter >= 5) {
+    if (counter >= 42) {
       $('#player-turn').text("The game is a draw")
-      var run = prompt("This game is a draw, would you like to play again? \n 1. (y)es \n 2. (n)o")
-
-
-      //Input Validation for prompt box
-      if (run !== 'n' && run !== 'y') {
-        while (run !== 'n' && run !== 'y') {
-          alert("Invalid input, please input y for yes or n for no");
-
-          run = prompt("Would you like to play again? \n 1. (y)es \n 2. (n)o");
-        }
-      } else if (run === 'y') {
-        resetBoard();
-      } else {
-        $('#endGameModal').show();
-      }
+      $('#play-again').show("slow");
     }
   }
 
@@ -82,21 +84,27 @@ $(document).ready(function() {
     $('.board button').addClass('default');
     $('.board button').removeClass('player1Selected');
     $('.board button').removeClass('player2Selected');
+    $('#play-again').hide();
+    board = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0]
+    ];
   }
 
-  function rulesShow(){
+  function rulesShow() {
     $('#rulesModal').show();
   }
 
-  function rulesClose(){
+  function rulesClose() {
     $('#rulesModal').hide();
   }
 
-  function errorClose(){
+  function errorClose() {
     $('#errorModal').hide();
   }
 
-  function gameClose(){
-    $('#endGameModal').hide();
-  }
 });
