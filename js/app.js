@@ -97,7 +97,7 @@ $(document).ready(function() {
     $('#play-again').show("slow");
     $('.board button').unbind();
     player1Score++;
-    $('#player1-score').text(player1Name + "s Score: " + player1Score);
+    $('#player1-score').text(player1Name + " Score: " + player1Score);
   }
 
   //Changes the output display to show a player 1 win
@@ -106,7 +106,7 @@ $(document).ready(function() {
     $('#play-again').show("slow");
     $('.board button').unbind();
     player2Score++;
-    $('#player2-score').text(player2Name + "s Score: " + player2Score);
+    $('#player2-score').text(player2Name + " Score: " + player2Score);
   }
 
   //Cycles through all of the rows adding up all adjacent identical cells within the row and declaring a winner if there are 4 next to each other
