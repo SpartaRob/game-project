@@ -15,6 +15,10 @@ $(document).ready(function() {
   var player2Score = 0;
   var counter = 0;
 
+  var player1Name = 'Player 1';
+  var player2Name = 'Player 2';
+
+
   $('#reset').click(resetBoard)
   $('#reset').click(resetScore)
   $('#play-again').click(resetBoard)
@@ -23,6 +27,16 @@ $(document).ready(function() {
   $('#error-close').click(errorClose)
   $('.board button').click(boardClick)
 
+
+
+  // function setPlayer1Name(){
+  // $('#player1-score').text(player1Name + "s Score: " + player1Score);
+  // $('#player-turn').text("Current player is: " + player1Name);
+  // }
+
+  // function setPlayer2Name(){
+  //   $('#player2-score').text(player2Name + "s Score: " + player2Score);
+  // }
 
   //Add a piece to the board, removes default class styling, adds new styling depending active player, checks for a draw
   function boardClick(event) {
@@ -39,7 +53,7 @@ $(document).ready(function() {
     if (board[xpos][ypos] === 0) {
       if (currentPlayer === 'Player 1') {
         currentPlayer = 'Player 2';
-        $('#player-turn').text("Current player is: " + currentPlayer);
+        $('#player-turn').text("Current player is: " + player1Name);
         board[xpos][ypos] = 1;
         var cell = $("tr:eq(" + ypos + ")").find('td').eq(xpos);
         cell.children('button').addClass('player1Selected');
@@ -47,7 +61,7 @@ $(document).ready(function() {
         counter++;
       } else {
         currentPlayer = 'Player 1';
-        $('#player-turn').text("Current player is: " + currentPlayer);
+        $('#player-turn').text("Current player is: " + player2Name);
         board[xpos][ypos] = 2;
         var cell = $("tr:eq(" + ypos + ")").find('td').eq(xpos);
         cell.children('button').addClass('player2Selected');
@@ -69,6 +83,7 @@ $(document).ready(function() {
     return y;
   }
 
+  //Runs all victory condition functions
   function checkForWin() {
     horizontalWin();
     verticalWin();
@@ -78,20 +93,20 @@ $(document).ready(function() {
 
   //Changes the output display to show a player 1 win
   function player1Win(){
-    $('#player-turn').text("Player 1 Wins")
+    $('#player-turn').text(player1Name + " Wins");
     $('#play-again').show("slow");
     $('.board button').unbind();
     player1Score++;
-    $('#player1-score').text("Player 1 Score: " + player1Score);
+    $('#player1-score').text(player1Name + "s Score: " + player1Score);
   }
 
   //Changes the output display to show a player 1 win
   function player2Win(){
-    $('#player-turn').text("Player 2 Wins")
+    $('#player-turn').text(player2Name + " Wins");
     $('#play-again').show("slow");
     $('.board button').unbind();
     player2Score++;
-    $('#player2-score').text("Player 2 Score: " + player2Score);
+    $('#player2-score').text(player2Name + "s Score: " + player2Score);
   }
 
   //Cycles through all of the rows adding up all adjacent identical cells within the row and declaring a winner if there are 4 next to each other
@@ -234,7 +249,7 @@ $(document).ready(function() {
 
   //Resets the board, clears all styling, resets the turn counter and status message
   function resetBoard() {
-    $('#player-turn').text("Current player is: Player 1");
+    $('#player-turn').text("Current player is: " + player1Name);
     counter = 0;
     $('.board button').addClass('default');
     $('.board button').removeClass('player1Selected');
@@ -257,8 +272,8 @@ $(document).ready(function() {
   function resetScore(){
     player1Score = 0;
     player2Score = 0;
-    $('#player1-score').text("Player 1 Score: " + player1Score);
-    $('#player2-score').text("Player 2 Score: " + player2Score);
+    $('#player1-score').text(player1Name + "s Score: " + player1Score);
+    $('#player2-score').text(player2Name + "s Score: " + player2Score);
   }
 
   function rulesShow() {
