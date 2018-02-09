@@ -15,9 +15,11 @@ $(document).ready(function() {
   var player2Score = 0;
   var counter = 0;
 
-  var player1Name = 'Player 1';
-  var player2Name = 'Player 2';
-
+  var player1Name = prompt("Please enter Player 1's Name", 'Player 1');
+  var player2Name = prompt("Please enter Player 2's Name", 'Player 2');
+  $('#player1-score').text(player1Name + " Score: " + player1Score);
+  $('#player2-score').text(player2Name + " Score: " + player2Score);
+  $('#player-turn').text("Current player is: " + player1Name);
 
   $('#reset').click(resetBoard)
   $('#reset').click(resetScore)
@@ -195,9 +197,9 @@ $(document).ready(function() {
           xcurrent--;
           ycurrent--;
         }
+        count = 0;
+        previousValue = 0;
       }
-      count = 0;
-      previousValue = 0;
     }
   }
 
@@ -231,9 +233,9 @@ $(document).ready(function() {
           xcurrent++;
           ycurrent--;
         }
+        count = 0;
+        previousValue = 0;
       }
-      count = 0;
-      previousValue = 0;
     }
   }
 
@@ -249,7 +251,7 @@ $(document).ready(function() {
 
   //Resets the board, clears all styling, resets the turn counter and status message
   function resetBoard() {
-    $('#player-turn').text("Current player is: " + player1Name);
+    currentPlayer = prompt('Would you like ' + player1Name + ' or ' + player2Name + ' to play first?', player1Name);
     counter = 0;
     $('.board button').addClass('default');
     $('.board button').removeClass('player1Selected');
@@ -257,7 +259,8 @@ $(document).ready(function() {
     $('#play-again').hide();
     $('.board button').unbind();
     $('.board button').click(boardClick);
-    currentPlayer = 'Player 1';
+    $('#player-turn').text("Current player is: " + currentPlayer);
+
     board = [
       [0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0],
@@ -272,8 +275,8 @@ $(document).ready(function() {
   function resetScore(){
     player1Score = 0;
     player2Score = 0;
-    $('#player1-score').text(player1Name + "s Score: " + player1Score);
-    $('#player2-score').text(player2Name + "s Score: " + player2Score);
+    $('#player1-score').text(player1Name + " Score: " + player1Score);
+    $('#player2-score').text(player2Name + " Score: " + player2Score);
   }
 
   function rulesShow() {
@@ -287,5 +290,4 @@ $(document).ready(function() {
   function errorClose() {
     $('#errorModal').hide();
   }
-
 });
