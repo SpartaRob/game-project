@@ -251,7 +251,7 @@ $(document).ready(function() {
 
   //Resets the board, clears all styling, resets the turn counter and status message
   function resetBoard() {
-    currentPlayer = prompt('Would you like ' + player1Name + ' or ' + player2Name + ' to play first?', player1Name);
+    $('#player-turn').text("Current player is: " + player1Name);
     counter = 0;
     $('.board button').addClass('default');
     $('.board button').removeClass('player1Selected');
@@ -259,8 +259,7 @@ $(document).ready(function() {
     $('#play-again').hide();
     $('.board button').unbind();
     $('.board button').click(boardClick);
-    $('#player-turn').text("Current player is: " + currentPlayer);
-
+    currentPlayer = 'Player 1';
     board = [
       [0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0],
@@ -290,4 +289,5 @@ $(document).ready(function() {
   function errorClose() {
     $('#errorModal').hide();
   }
+
 });
