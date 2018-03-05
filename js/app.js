@@ -55,7 +55,7 @@ $(document).ready(function() {
     if (board[xpos][ypos] === 0) {
       if (currentPlayer === 'Player 1') {
         currentPlayer = 'Player 2';
-        $('#player-turn').text("Current player is: " + player1Name);
+        $('#player-turn').text("Current player is: " + player2Name);
         board[xpos][ypos] = 1;
         var cell = $("tr:eq(" + ypos + ")").find('td').eq(xpos);
         cell.children('button').addClass('player1Selected');
@@ -63,7 +63,7 @@ $(document).ready(function() {
         counter++;
       } else {
         currentPlayer = 'Player 1';
-        $('#player-turn').text("Current player is: " + player2Name);
+        $('#player-turn').text("Current player is: " + player1Name);
         board[xpos][ypos] = 2;
         var cell = $("tr:eq(" + ypos + ")").find('td').eq(xpos);
         cell.children('button').addClass('player2Selected');
@@ -248,10 +248,25 @@ $(document).ready(function() {
     }
   }
 
+  //Prompt who will play 1st when starting a new game
+
+ function playFirst(){
+  var firstPlayer = prompt("Would you like " + player1Name + " or " + player2Name + " to play first?");
+
+  if (firstPlayer == player1Name) {
+    $('#player-turn').text("Current player is: " + player1Name);
+    currentPlayer = 'Player 1';
+  } else if (firstPlayer == player2Name) {
+    $('#player-turn').text("Current player is: " + player2Name);
+    currentPlayer = 'Player 2';
+  }
+ }
+
 
   //Resets the board, clears all styling, resets the turn counter and status message
   function resetBoard() {
-    $('#player-turn').text("Current player is: " + player1Name);
+    //$('#player-turn').text("Current player is: " + player1Name);
+    playFirst()
     counter = 0;
     $('.board button').addClass('default');
     $('.board button').removeClass('player1Selected');
@@ -259,7 +274,7 @@ $(document).ready(function() {
     $('#play-again').hide();
     $('.board button').unbind();
     $('.board button').click(boardClick);
-    currentPlayer = 'Player 1';
+    //currentPlayer = 'Player 1';
     board = [
       [0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0],
